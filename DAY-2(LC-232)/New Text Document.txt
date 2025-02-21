@@ -1,0 +1,39 @@
+https://leetcode.com/problems/implement-queue-using-stacks/
+
+  
+class MyQueue {  
+    Stack<Integer> myStack, temp;   
+ 
+    public MyQueue() {  
+        myStack = new Stack<>(); // Initialize stack  
+        temp = new Stack<>(); // Initialize temp  
+    }  
+ 
+    public void push(int x) {  
+        myStack.push(x); // Push to stack  
+    }  
+    //remove top element
+    public int pop() {  
+        if (!temp.isEmpty())  
+            return temp.pop();  
+        while (!myStack.isEmpty()) {
+            temp.push(myStack.pop());   
+        }  
+        return temp.pop();     }  
+
+    // Get front  
+    public int peek() {  
+        if (!temp.isEmpty())  
+            return temp.peek();   
+        while (!myStack.isEmpty()) { 
+            temp.push(myStack.pop());  
+        }  
+        return temp.peek();     }  
+
+    // Check empty  
+    public boolean empty() {  
+        if (temp.isEmpty() && myStack.isEmpty())  
+            return true;   
+        return false;
+    }  
+}
