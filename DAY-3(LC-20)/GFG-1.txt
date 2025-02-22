@@ -1,0 +1,29 @@
+https://www.geeksforgeeks.org/problems/implement-stack-using-linked-list/1
+
+class MyStack {
+    // class StackNode {
+    //     int data;
+    //     StackNode next;
+    //     StackNode(int a) {
+    //         data = a;
+    //         next = null;
+    //     }
+    // }
+    StackNode top=null;
+    
+    void push(int a) {
+        StackNode newNode=new StackNode(a);
+        newNode.next=top;
+        top=newNode;
+        
+    }
+
+    int pop() {
+        if(top==null){
+            return -1;
+        }
+        int removedValue=top.data;
+        top=top.next;
+        return removedValue;
+    }
+}

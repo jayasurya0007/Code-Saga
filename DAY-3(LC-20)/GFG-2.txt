@@ -1,0 +1,31 @@
+https://www.geeksforgeeks.org/problems/implement-queue-using-linked-list/1
+
+class MyQueue
+{
+    QueueNode front=null, rear=null;
+
+	void push(int a)
+	{
+        QueueNode newNode=new QueueNode(a);
+        if(front==null && rear==null){
+            front=newNode;
+            rear=newNode;
+        }
+        else{
+            rear.next=newNode;
+            rear=newNode;
+        }
+	}
+
+	int pop()
+	{
+        // Your code here
+        if(front==null) return -1;
+        if(front.next==null){
+            rear=null;
+        }
+        int removedValue=front.data;
+        front=front.next;
+        return removedValue;
+	}
+}
