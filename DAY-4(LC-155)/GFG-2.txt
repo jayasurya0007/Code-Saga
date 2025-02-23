@@ -1,0 +1,17 @@
+gfg link : https://www.geeksforgeeks.org/problems/swap-two-numbers3844/1
+
+
+class Solution{
+    static List<Integer> get(int a,int b)
+    {
+        // code here
+        ArrayList<Integer> swapList=new ArrayList<>();
+        a=a^b;
+        b=a^b;
+        a=a^b;
+        swapList.add(a);
+        swapList.add(b);
+        return swapList;
+        
+    }
+}

@@ -1,0 +1,15 @@
+gfg link : https://www.geeksforgeeks.org/problems/set-the-rightmost-unset-bit4436/1
+
+class Solution {
+    static int setBit(int n) {
+        int k=n;
+        int i=0;
+        while(k>1){
+            if(k%2==0)break;
+            k=k/2;
+            i++;
+        }
+        if(k==1) i++;
+        return n | (1<<i);
+    }
+}
