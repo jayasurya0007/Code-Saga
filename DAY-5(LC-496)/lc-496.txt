@@ -1,0 +1,31 @@
+lc link : https://leetcode.com/problems/next-greater-element-i/description/
+
+class Solution {
+    public int[] nextGreaterElement(int[] nums1, int[] nums2) {
+        int n=nums1.length;
+        int[] result=new int[n];
+        HashMap<Integer,Integer> resultMap=new HashMap<>();
+        for(int i=0;i<n;i++){
+            resultMap.put(nums1[i],i);
+        }
+        Stack<Integer> resultStack=new Stack<>();
+        for(int i=nums2.length-1;i>=0;i--){
+            
+            while(!resultStack.isEmpty() && resultStack.peek()<=nums2[i]){
+                resultStack.pop();
+            }
+            if(resultStack.isEmpty()){
+                if(resultMap.containsKey(nums2[i])){
+                    result[resultMap.get(nums2[i])]=-1;
+                }
+            }
+            else{
+                if(resultMap.containsKey(nums2[i])){
+                    result[resultMap.get(nums2[i])]=resultStack.peek();
+                }
+            }
+            resultStack.push(nums2[i]);
+        }
+        return result;
+    }
+}
