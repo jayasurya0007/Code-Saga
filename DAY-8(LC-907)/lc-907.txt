@@ -1,0 +1,43 @@
+lc link :https://leetcode.com/problems/sum-of-subarray-minimums/description/
+
+class Solution {
+    public int sumSubarrayMins(int[] arr) {
+        int[] nse=nse(arr);
+        int[] psee=psee(arr);
+        int left=0,right=0;
+        int MOD = 1000000007;
+        long total=0;
+        for(int i=0;i<arr.length;i++){
+            left=i-psee[i];
+            right=nse[i]-i;
+            total=(total+(((long)left*right%MOD)*arr[i])%MOD)%MOD;
+        }
+        return (int)total;
+    }
+    public int[] nse(int[] arr){
+        int n=arr.length;
+        Stack<Integer> myStack=new Stack<Integer>();
+        int[] result=new int[n];
+        for(int i=n-1;i>=0;i--){
+            while(!myStack.isEmpty() && arr[myStack.peek()]>=arr[i]){
+                myStack.pop();
+            }
+            result[i]=myStack.isEmpty()?n:myStack.peek();
+            myStack.push(i);
+        }
+        return result;
+    }
+    public int[] psee(int[] arr){
+        int n=arr.length;
+        Stack<Integer> myStack=new Stack<Integer>();
+        int[] result=new int[n];
+        for(int i=0;i<n;i++){
+            while(!myStack.isEmpty() && arr[myStack.peek()]>arr[i]){
+                myStack.pop();
+            }
+            result[i]=myStack.isEmpty()?-1:myStack.peek();
+            myStack.push(i);
+        }
+        return result;
+    }
+}
