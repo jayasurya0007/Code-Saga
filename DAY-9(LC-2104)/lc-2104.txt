@@ -1,0 +1,63 @@
+lc link : https://leetcode.com/problems/sum-of-subarray-ranges/description/
+
+class Solution {
+    public long subArrayRanges(int[] nums) {
+        int n=nums.length;
+        Stack<Integer> myStack=new Stack<>();
+        int[] nse=new int[n];
+        for(int i=n-1;i>=0;i--){
+            while(!myStack.isEmpty() && nums[myStack.peek()]>=nums[i]){
+                myStack.pop();
+            }
+            nse[i]=myStack.isEmpty()?n:myStack.peek();
+            myStack.push(i);
+        }
+        myStack=new Stack<>();
+        int[] psee=new int[n];
+        for(int i=0;i<n;i++){
+            while(!myStack.isEmpty() && nums[myStack.peek()]>nums[i]){
+                myStack.pop();
+            }
+            psee[i]=myStack.isEmpty()?-1:myStack.peek();
+            myStack.push(i);
+        }
+
+        long left=0,right=0;
+        long totalMin=0;
+        for(int i=0;i<n;i++){
+            left=i-psee[i];
+            right=nse[i]-i;
+            totalMin+=((left*right)*nums[i]);
+        }
+
+
+        myStack=new Stack<>();
+        int[] nge=new int[n];
+        for(int i=n-1;i>=0;i--){
+            while(!myStack.isEmpty() && nums[myStack.peek()]<=nums[i]){
+                myStack.pop();
+            }
+            nge[i]=myStack.isEmpty()?n:myStack.peek();
+            myStack.push(i);
+        }
+        myStack=new Stack<>();
+        int[] pgee=new int[n];
+        for(int i=0;i<n;i++){
+            while(!myStack.isEmpty() && nums[myStack.peek()]<nums[i]){
+                myStack.pop();
+            }
+            pgee[i]=myStack.isEmpty()?-1:myStack.peek();
+            myStack.push(i);
+        }
+        left=0;
+        right=0;
+        long totalMax=0;
+        for(int i=0;i<n;i++){
+            left=i-pgee[i];
+            right=nge[i]-i;
+            totalMax+=((left*right)*nums[i]);
+        }
+        return totalMax-totalMin;
+    
+            }
+                }
