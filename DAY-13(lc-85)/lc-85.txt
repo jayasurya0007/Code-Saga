@@ -1,0 +1,43 @@
+lc link : https://leetcode.com/problems/maximal-rectangle/description/
+
+class Solution {
+    public int maximalRectangle(char[][] matrix) {
+        int n=matrix.length;
+        int m=matrix[0].length;
+        int prevSum[][]=new int[n][m];
+        int maxValue=Integer.MIN_VALUE;
+        for(int i=0;i<m;i++){
+            int sum=0;
+            for(int j=0;j<n;j++){
+                sum++;
+                if(matrix[j][i]=='0') sum=0;
+                prevSum[j][i]=sum;
+            }
+        }
+        for(int i=0;i<n;i++){
+            maxValue=Math.max(maxValue,largestRectangleArea(prevSum[i]));
+        }
+        return maxValue;
+    }
+    public int largestRectangleArea(int[] heights) {
+     Stack<Integer> resultStack=new Stack<>();
+     int n=heights.length;
+     int max=Integer.MIN_VALUE;
+     for(int i=0;i<n;i++){
+        while(!resultStack.isEmpty() && heights[resultStack.peek()]>heights[i]){
+            int element=resultStack.pop();
+            int nse=i;
+            int pse=resultStack.isEmpty()?-1:resultStack.peek();
+            max=Math.max(max,heights[element]*(nse-pse-1));
+        }
+        resultStack.push(i);
+     }   
+     while(!resultStack.isEmpty()){
+        int element =resultStack.pop();
+        int nse=n;
+        int pse=resultStack.isEmpty()?-1:resultStack.peek();
+        max=Math.max(max,heights[element]*(nse-pse-1));
+     }
+     return max;
+    }
+}
